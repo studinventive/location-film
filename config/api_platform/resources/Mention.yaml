@@ -1,0 +1,33 @@
+# app/config/api_platform/resources/
+
+App\Entity\Mention:
+  attributes: 
+    security: is_granted("ROLE_USER")
+  denormalization_context:
+    groups: [write:Mention]
+    openapi_definition_name: Item
+  normalization_context:
+    groups: [read:Mention:item]
+
+  collectionOperations:
+    post:
+  itemOperations:
+    put:
+      security: 'is_granted("EDIT, object")'
+      openapi_context:
+        responses:
+            403:
+              description: Access Denied
+    patch:
+      security: 'is_granted("EDIT, object")'
+      openapi_context:
+        responses:
+            403:
+              description: Access Denied
+    delete:
+      security: 'is_granted("EDIT, object")'
+      openapi_context:
+        responses:
+            403:
+              description: Access Denied
+  

@@ -1,0 +1,55 @@
+api_platform:
+
+    title: 'Location-Films'
+    description: 'API location de films'
+    version: '0.1.0'
+
+    formats:
+        jsonld:   ['application/ld+json']
+        jsonhal:  ['application/hal+json']
+        jsonapi:  ['application/vnd.api+json']
+        json:     ['application/json']
+        yaml:     ['application/x-yaml']
+        xml:      ['application/xml', 'text/xml']
+        html:     ['text/html']
+
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity', '%kernel.project_dir%/config/api_platform/resources']
+        # paths: ['%kernel.project_dir%/src/Entity']
+
+    patch_formats:
+        json: ['application/merge-patch+json']
+
+    exception_to_status:
+        # The 4 following handlers are registered by default, keep those lines to prevent unexpected side effects
+        Symfony\Component\Serializer\Exception\ExceptionInterface: 400 # Use a raw status code (recommended)
+        ApiPlatform\Core\Exception\InvalidArgumentException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST
+        ApiPlatform\Core\Exception\FilterValidationException: 400
+        Doctrine\ORM\OptimisticLockException: 409
+
+        # Validation exception
+        ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
+
+        # Custom mapping
+
+    defaults:
+        cache_headers:
+            etag: true
+            max_age: 120
+            shared_max_age: 3600
+            vary: ['Content-Type', 'Authorization', 'Origin']
+
+    http_cache:
+        invalidation:
+            enabled: true
+            # varnish_urls: ['%env(VARNISH_URL)%']
+        public: true
+
+    swagger:
+        versions: [3]
+        api_keys:
+          apiKey:
+            name: Authorization
+            type: header
+
+    show_webby: false

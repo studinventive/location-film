@@ -1,0 +1,13 @@
+# app/config/serialization/
+
+App\Entity\User:
+  attributes:
+    email:
+      groups: [read:User:item, read:User:collection, write:User]
+    roles:
+        groups: [read:User:item]    
+    password:
+      openapi_context:
+        type: string
+        example: blabla
+      groups: [write:User]

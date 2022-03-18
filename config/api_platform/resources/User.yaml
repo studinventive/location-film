@@ -1,0 +1,55 @@
+# app/config/api_platform/resources/
+
+App\Entity\User:
+  properties:
+    email:
+      attributes:
+        openapi_context:
+          type: string
+          example: utilisateur@monmail.com
+    password:
+      attributes:
+        openapi_context:
+          type: string
+          example: Fi@15UA2:XzaP1S
+  attributes: 
+    # security: is_granted("ROLE_USER")
+    formats: [jsonld, jsonhal, json, xml]   
+    pagination_items_per_page: 10
+    pagination_maximum_items_per_page: 20
+    pagination_client_items_per_page: true
+    validation_groups: [write:User]
+    denormalization_context:
+      groups: [write:User]
+      openapi_definition_name: Item
+    normalization_context:
+      groups: [read:User:collection]
+      openapi_definition_name: Collection
+
+  collectionOperations:
+    post:
+      denormalization_context:
+        groups: [write:User]
+      openapi_context:
+        summary: Registration (...).
+
+  itemOperations:
+    delete:
+      security: 'is_granted("ROLE_ADMIN")'
+      openapi_context:
+        summary: Admin Only.
+        responses:
+            403:
+              description: Access Denied
+    me:
+      security: is_granted("ROLE_USER")
+      method: GET
+      path: /me
+      controller: App\Controller\UserMeController
+      read: false
+      normalization_context:
+        groups: [read:User:item, read:User:collection]
+      openapi_context:
+        summary: Retrieves current authenticated User.
+        description: Retrieves current authenticated User.
+    
