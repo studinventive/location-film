@@ -43,6 +43,7 @@ class Movie
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->mentions = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->rents = new ArrayCollection();

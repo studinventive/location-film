@@ -31,7 +31,8 @@ api_platform:
         ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
 
         # Custom mapping
-
+        App\Exception\UserInPayloadNotFoundException: 422
+        
     defaults:
         cache_headers:
             etag: true

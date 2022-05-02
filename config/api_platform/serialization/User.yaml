@@ -3,9 +3,9 @@
 App\Entity\User:
   attributes:
     email:
-      groups: [read:User:item, read:User:collection, write:User]
+      groups: [read:User:item, read:User:collection, write:User, read:Movie:item]
     roles:
-        groups: [read:User:item]    
+      groups: [read:User:item]    
     password:
       openapi_context:
         type: string

@@ -3,27 +3,24 @@
 App\Entity\Comment:
   attributes: 
     security: is_granted("ROLE_USER")
-  denormalization_context:
-    groups: [write:Movie]
-    openapi_definition_name: Item
+    denormalization_context:
+      groups: [write:Comment, update:Comment]
+    normalization_context:
+      groups: ['read:Movie:item']
 
   collectionOperations:
-    post:  
+    post: 
+
   itemOperations:
+    get: ~
     put:
-      security: 'is_granted("ROLE_ADMIN")'
-      openapi_context:
-        responses:
-            403:
-              description: Access Denied
-    patch:
-      security: 'is_granted("ROLE_ADMIN")'
+      # security: 'is_granted("EDIT", object)' # later : voter
       openapi_context:
         responses:
             403:
               description: Access Denied
     delete:
-      security: 'is_granted("ROLE_ADMIN")' # later : voter
+      # security: 'is_granted("DELETE", object)' # later : voter
       openapi_context:
         responses:
             403:

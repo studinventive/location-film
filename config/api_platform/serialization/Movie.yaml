@@ -1,0 +1,18 @@
+# app/config/serialization/
+
+App\Entity\Movie:
+  attributes:
+    title:
+      groups: [read:Movie:collection, write:Movie]
+    synopsis:
+      groups: [read:Movie:item, write:Movie]
+    releasedAt:
+      groups: [read:Movie:collection, write:Movie]
+    createdAt:
+      groups: [read:Movie:item]
+    image:
+      groups: [read:Movie:collection, write:Movie]
+    comments:
+      groups: [read:Movie:collection]
+    mentions:
+      groups: [read:Movie:collection]

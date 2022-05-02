@@ -10,20 +10,22 @@ App\Entity\Movie:
     validation_groups: ['write:Movie']
     denormalization_context:
       groups: [write:Movie]
-      openapi_definition_name: Item
     normalization_context:
       groups: [read:Movie:collection]
-      openapi_definition_name: Collection
 
   collectionOperations:
     get: ~
     post: 
-      security: 'is_granted("ROLE_ADMIN")'
+      # security: 'is_granted("ROLE_ADMIN")'
+      normalization_context:
+        groups: [write:Movie]
       openapi_context:
         summary: Admin Only.
 
   itemOperations:
-    get: ~
+    get:
+      normalization_context:
+        groups: [read:Movie:item, read:Movie:collection]
     put:
       security: 'is_granted("ROLE_ADMIN")'
       openapi_context:

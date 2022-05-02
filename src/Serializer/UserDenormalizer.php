@@ -10,9 +10,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 
 /**
- * This custom denormalizer automatically hash created User's password.
+ * This custom denormalizer automatically hashes created User's password.
  */
-class CurrentUserDenormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface
+class UserDenormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
 

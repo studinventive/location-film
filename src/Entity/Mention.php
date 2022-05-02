@@ -17,13 +17,13 @@ class Mention
     #[ORM\JoinColumn(nullable: false)]
     private $movie;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mentions')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mentions', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     /** @var bool $isLike Defines wether the mention is a like or not */
-    private $isLike = true;
+    private $isLike;
 
     public function getId(): ?int
     {

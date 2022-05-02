@@ -36,6 +36,11 @@ class Rent
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $guestEmail;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

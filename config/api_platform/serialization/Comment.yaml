@@ -1,0 +1,14 @@
+# app/config/serialization/
+
+App\Entity\Comment:
+  attributes:
+    id:
+      groups: ['read:Movie:collection']
+    content:
+      groups: [write:Comment, update:Comment, read:Movie:item]
+    user:
+      groups: [read:Movie:item]
+    createdAt:
+      groups: [read:Movie:item]
+    updatedAt:
+      groups: [read:Movie:item]

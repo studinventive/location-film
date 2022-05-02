@@ -1,0 +1,10 @@
+# app/config/serialization/
+
+App\Entity\Mention:
+  attributes:
+    isLike:
+      groups: [write:Mention, update:Mention, read:Movie:collection]
+    user:
+      groups: [read:Movie:item]
+    movie:
+      groups: [write:Mention, update:Mention]

@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Mention;
+use App\Entity\Movie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -19,6 +21,18 @@ class MentionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Mention::class);
+    }
+
+    public function UserHasMentionOnMovie(Movie $movie, User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('count(m)')
+            ->andWhere('m.movie = :movie')
+            ->setParameter('movie', $movie)
+            ->andWhere('m.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     /**

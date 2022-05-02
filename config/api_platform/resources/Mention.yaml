@@ -3,29 +3,25 @@
 App\Entity\Mention:
   attributes: 
     security: is_granted("ROLE_USER")
-  denormalization_context:
-    groups: [write:Mention]
-    openapi_definition_name: Item
-  normalization_context:
-    groups: [read:Mention:item]
+    denormalization_context:
+      groups: [write:Mention, update:Mention]
+    normalization_context:
+      groups: [read:Movie:item]
 
   collectionOperations:
     post:
+      security_post_denormalize: 'is_granted("NEW", object)'
+
   itemOperations:
+    get: ~
     put:
-      security: 'is_granted("EDIT, object")'
-      openapi_context:
-        responses:
-            403:
-              description: Access Denied
-    patch:
-      security: 'is_granted("EDIT, object")'
+      security: 'is_granted("EDIT", object)'
       openapi_context:
         responses:
             403:
               description: Access Denied
     delete:
-      security: 'is_granted("EDIT, object")'
+      security: 'is_granted("DELETE", object)'
       openapi_context:
         responses:
             403:

@@ -50,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUser
     public static function createFromPayload($username, array $payload): JWTUserInterface
     {
         $user = (new User())
+            ->setId($payload['id'])
             ->setEmail($username)
             ->setRoles($payload['roles'] ?? null);
         return $user;
@@ -58,6 +59,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUser
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string

@@ -3,31 +3,15 @@
 App\Entity\Rent:
   attributes: 
     security: is_granted("ROLE_USER")
-  denormalization_context:
-    groups: [write:Movie]
-    openapi_definition_name: Item
-
+    denormalization_context:
+      groups: [write:Rent]
+    normalization_context:
+      groups: ['read:Rent:item']
+      
   collectionOperations:
-    post:  
+    post:
+
   itemOperations:
-    put:
-      security: 'is_granted("ROLE_ADMIN")'
-      openapi_context:
-        summary: Admin Only.
-        responses:
-            403:
-              description: Access Denied
-    patch:
-      security: 'is_granted("ROLE_ADMIN")'
-      openapi_context:
-        summary: Admin Only.
-        responses:
-            403:
-              description: Access Denied
-    delete:
-      security: 'is_granted("ROLE_ADMIN")'
-      openapi_context:
-        summary: Admin Only.
-        responses:
-            403:
-              description: Access Denied
+    get: ~
+    # security: 'is_granted("SHOW", object)' # later : voter
+
